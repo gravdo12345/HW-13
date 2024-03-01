@@ -16,6 +16,9 @@ public class TicketCrudService {
     }
 
     public void saveTicket(Ticket ticket) {
+        if (ticket == null || ticket.getClient() == null || ticket.getFromPlanet() == null || ticket.getToPlanet() == null) {
+            throw new IllegalArgumentException("Ticket, client, fromPlanet, and toPlanet must not be null");
+        }
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(ticket);
